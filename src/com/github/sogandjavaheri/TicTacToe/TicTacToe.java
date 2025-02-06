@@ -3,22 +3,31 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-        public static void main(String[] args) {
+    public static void main(String[] args) {
 
-            char[][] board = new char[3][3];
+        game();
+        K
+    }
 
-            for(int i = 0; i < 3; i++) {
+    public static void game() {
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.print("What is your name?, X: ");
+        Player p1 = new Player();
+        p1.name = new Scanner(System.in).nextLine();
+
+        System.out.print("What is your name?, O: ");
+        Player p2 = new Player();
+        p2.name = new Scanner(System.in).nextLine();
+
+        char[][] board = new char[3][3];
+
+        for(int i = 0; i < 3; i++) {
                 for(int j = 0; j < 3; j++) {
                     board[i][j] = '-';
                 }
             }
-
-            Scanner in = new Scanner(System.in);
-            System.out.println("Tic Tac Toe is ready for play!\n");
-            System.out.print("What is your name?, X: ");
-            String p1 = in.nextLine();
-            System.out.print("What is your name?, O: ");
-            String p2 = in.nextLine();
 
             boolean player = true;
 
@@ -28,9 +37,9 @@ public class TicTacToe {
                 drawBoard(board);
 
                 if(player) {
-                    System.out.println(p1 + "'s Turn (x):");
+                    System.out.println(p1.name + "'s Turn (x):");
                 } else {
-                    System.out.println(p2 + "'s Turn (o):");
+                    System.out.println(p2.name + "'s Turn (o):");
                 }
 
                 char c = '-';
@@ -64,10 +73,10 @@ public class TicTacToe {
                 board[row][col] = c;
 
                 if(Winner(board) == 'x') {
-                    System.out.println(p1 + " has won!");
+                    System.out.println(p1.name + " has won!");
                     gameEnded = true;
                 } else if(Winner(board) == 'o') {
-                    System.out.println(p2 + " has won!");
+                    System.out.println(p2.name + " has won!");
                     gameEnded = true;
                 } else {
 
@@ -84,6 +93,7 @@ public class TicTacToe {
             drawBoard(board);
         }
 
+
         public static void drawBoard(char[][] board) {
             System.out.println("Board:");
             for(int i = 0; i < board.length; i++) {
@@ -95,6 +105,7 @@ public class TicTacToe {
                 System.out.println();
             }
         }
+
 
         public static char Winner(char[][] board) {
 
