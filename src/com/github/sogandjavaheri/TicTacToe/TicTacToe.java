@@ -1,207 +1,146 @@
 package com.github.sogandjavaheri.TicTacToe;
 import java.util.Scanner;
 
+
 public class TicTacToe {
+    private char[][] board;
+    private Player player1;
+    private Player player2;
+    private Player currentPlayer;
+    private Scanner scanner;
 
-    public static void main(String[] args) {
-
-        game();
-        K
+    public TicTacToe() {
+        scanner = new Scanner(System.in);
+        board = new char[3][3];
+        initializeBoard();
+        getPlayerInfo(); // Method to get player names
+        currentPlayer = player1;
     }
 
-    public static void game() {
+    public void getPlayerInfo() {
+        System.out.print("Enter name for Player 1 (X): ");
+        String name1 = scanner.nextLine();
+        player1 = new Player(name1, 'X');
 
-        Scanner in = new Scanner(System.in);
+        System.out.print("Enter name for Player 2 (O): ");
+        String name2 = scanner.nextLine();
+        player2 = new Player(name2, 'O');
+    }
 
-        System.out.print("What is your name?, X: ");
-        Player p1 = new Player();
-        p1.name = new Scanner(System.in).nextLine();
-
-        System.out.print("What is your name?, O: ");
-        Player p2 = new Player();
-        p2.name = new Scanner(System.in).nextLine();
-
-        char[][] board = new char[3][3];
-
-        for(int i = 0; i < 3; i++) {
-                for(int j = 0; j < 3; j++) {
-                    board[i][j] = '-';
-                }
-            }
-
-            boolean player = true;
-
-            boolean gameEnded = false;
-            while(!gameEnded) {
-
-                drawBoard(board);
-
-                if(player) {
-                    System.out.println(p1.name + "'s Turn (x):");
-                } else {
-                    System.out.println(p2.name + "'s Turn (o):");
-                }
-
-                char c = '-';
-                if(player) {
-                    c = 'x';
-                } else {
-                    c = 'o';
-                }
-
-                int row = 0;
-                int col = 0;
-
-                while(true) {
-
-                    System.out.print("Enter a row number: ");
-                    row = in.nextInt();
-                    System.out.print("Enter a column number: ");
-                    col = in.nextInt();
-
-                    if(row < 0 || col < 0 || row >= 3 || col >= 3) {
-                        System.out.println("This position is off the bounds of the board! Try again.");
-
-                    } else if(board[row][col] != '-') {
-                        System.out.println("Someone has already made a move at this position! Try again.");
-
-                    } else {
-                        break;
-                    }
-                }
-
-                board[row][col] = c;
-
-                if(Winner(board) == 'x') {
-                    System.out.println(p1.name + " has won!");
-                    gameEnded = true;
-                } else if(Winner(board) == 'o') {
-                    System.out.println(p2.name + " has won!");
-                    gameEnded = true;
-                } else {
-
-                    if(boardIsFull(board)) {
-                        System.out.println("It's a tie!");
-                        gameEnded = true;
-                    } else {
-
-                        player = !player;
-                    }
-                }
-            }
-
-            drawBoard(board);
-        }
-
-
-        public static void drawBoard(char[][] board) {
-            System.out.println("Board:");
-            for(int i = 0; i < board.length; i++) {
-
-                for(int j = 0; j < board[i].length; j++) {
-                    System.out.print(board[i][j]);
-                }
-
-                System.out.println();
+    private void initializeBoard() {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                board[i][j] = '-';
             }
         }
+    }
 
+    public void start() {
+        while (true) {
+            printBoard();
+            System.out.println(currentPlayer.getName() + " (" + currentPlayer.getSymbol() + ") - Enter row and column (0-2): ");
+            int row = scanner.nextInt();
+            int col = scanner.nextInt();
 
-        public static char Winner(char[][] board) {
-
-            for(int i = 0; i < board.length; i++) {
-
-                boolean inARow = true;
-
-                char value = board[i][0];
-
-                if(value == '-') {
-                    inARow = false;
-
-                } else {
-                    for(int j = 1; j < board[i].length; j++) {
-
-                        if(board[i][j] != value) {
-                            inARow = false;
-                            break;
-                        }
-                    }
-                }
-
-                if(inARow) {
-                    return value;
-                }
+            if (!makeMove(row, col, currentPlayer.getSymbol())) {
+                System.out.println("Invalid move. Try again.");
+                continue;
             }
 
-            for(int j = 0; j < board[0].length; j++) {
-                boolean inACol = true;
-                char value = board[0][j];
-
-                if(value == '-') {
-                    inACol = false;
-                } else {
-
-                    for(int i = 1; i < board.length; i++) {
-                        if(board[i][j] != value) {
-                            inACol = false;
-                            break;
-                        }
-                    }
-                }
-
-                if(inACol) {
-
-                    return value;
-                }
+            char winner = checkWinner();
+            if (winner != ' ') {
+                printBoard();
+                System.out.println(currentPlayer.getName() + " wins!");
+                break;
             }
 
-
-            boolean inADiag1 = true;
-            char value1 = board[0][0];
-            if(value1 == '-') {
-                inADiag1 = false;
-            } else {
-                for(int i = 1; i < board.length; i++) {
-                    if(board[i][i] != value1) {
-                        inADiag1 = false;
-                        break;
-                    }
-                }
+            if (isBoardFull()) {
+                printBoard();
+                System.out.println("It's a draw!");
+                break;
             }
 
-            if(inADiag1) {
-                return value1;
-            }
-
-            boolean inADiag2 = true;
-            char value2 = board[0][board.length-1];
-
-            if(value2 == '-') {
-                inADiag2 = false;
-            } else {
-                for(int i = 1; i < board.length; i++) {
-                    if(board[i][board.length-1-i] != value2) {
-                        inADiag2 = false;
-                        break;
-                    }
-                }
-            }
-
-            if(inADiag2) {
-                return value2;
-            }
-
-            return ' ';
+            currentPlayer = (currentPlayer == player1) ? player2 : player1;
         }
+    }
 
-        public static boolean boardIsFull(char[][] board) {
-            for(int i = 0; i < board.length; i++) {
-                for(int j = 0; j < board[i].length; j++) {
-                    if(board[i][j] == '-') {
-                        return false;
-                    }
-                }
-            }
+    private boolean makeMove(int row, int col, char player) {
+        if (row >= 0 && row < board.length && col >= 0 && col < board.length && board[row][col] == '-') {
+            board[row][col] = player;
             return true;
         }
+        return false;
     }
+
+    private char checkWinner() {
+        // Check rows
+        for (int i = 0; i < board.length; i++) {
+            if (checkRow(i)) return board[i][0];
+        }
+
+        // Check columns
+        for (int i = 0; i < board[0].length; i++) {
+            if (checkColumn(i)) return board[0][i];
+        }
+
+        // Check diagonals
+        if (checkDiagonal()) return board[0][0];
+        if (checkAntiDiagonal()) return board[0][board.length - 1];
+
+        return ' ';
+    }
+
+    private boolean checkRow(int row) {
+        char value = board[row][0];
+        if (value == '-') return false;
+        for (int col = 1; col < board[row].length; col++) {
+            if (board[row][col] != value) return false;
+        }
+        return true;
+    }
+
+    private boolean checkColumn(int col) {
+        char value = board[0][col];
+        if (value == '-') return false;
+        for (int row = 1; row < board.length; row++) {
+            if (board[row][col] != value) return false;
+        }
+        return true;
+    }
+
+    private boolean checkDiagonal() {
+        char value = board[0][0];
+        if (value == '-') return false;
+        for (int i = 1; i < board.length; i++) {
+            if (board[i][i] != value) return false;
+        }
+        return true;
+    }
+
+    private boolean checkAntiDiagonal() {
+        char value = board[0][board.length - 1];
+        if (value == '-') return false;
+        for (int i = 1; i < board.length; i++) {
+            if (board[i][board.length - 1 - i] != value) return false;
+        }
+        return true;
+    }
+
+    private boolean isBoardFull() {
+        for (char[] row : board) {
+            for (char cell : row) {
+                if (cell == '-') return false;
+            }
+        }
+        return true;
+    }
+
+    private void printBoard() {
+        for (char[] row : board) {
+            for (char cell : row) {
+                System.out.print(cell + " ");
+            }
+            System.out.println();
+        }
+    }
+}
