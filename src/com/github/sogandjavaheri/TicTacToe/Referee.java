@@ -3,8 +3,8 @@ import java.util.Scanner;
 
 public class Referee {
     private TicTacToe game;
-    private Player player1;
-    private Player player2;
+//    private Player player1;
+//    private Player player2;
 
     public Referee(){
 //        this(game, player1, player2);
@@ -12,11 +12,11 @@ public class Referee {
 
     public Referee(TicTacToe game, Player player1, Player player2) {
         this.game = game;
-        this.player1 = player1;
-        this.player2 = player2;
+//        this.player1 = player1;
+//        this.player2 = player2;
     }
 
-    public void manageGame() {
+    public void manageGame(Player player1, Player player2) {
         Scanner scanner = new Scanner(System.in);
         Player currentPlayer = player1;
 

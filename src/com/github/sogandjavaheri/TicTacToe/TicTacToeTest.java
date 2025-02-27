@@ -10,6 +10,6 @@ public class TicTacToeTest {
         Player player1 = new Player(scanner, 'X');
         Player player2 = new Player(scanner, 'O');
         Referee referee = new Referee(game, player1, player2);
-        game.startGame(referee);
+        game.startGame(referee, player1, player2);
     }
 }

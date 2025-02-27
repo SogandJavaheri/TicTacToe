@@ -1,5 +1,4 @@
 package com.github.sogandjavaheri.TicTacToe;
-import java.util.Scanner;
 
 
 public class TicTacToe {
@@ -29,8 +28,8 @@ public class TicTacToe {
         }
     }
 
-    public void startGame(Referee referee) {
-        referee.manageGame();
+    public void startGame(Referee referee, Player player1, Player player2) {
+        referee.manageGame(player1, player2);
     }
 
     public char[][] getBoard() {
