@@ -7,7 +7,6 @@ public class Referee {
     private Player player2;
 
     public Referee(){
-//        this(game, player1, player2);
     }
 
     public Referee(TicTacToe game, Player player1, Player player2) {
