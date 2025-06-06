@@ -1,26 +1,43 @@
 # TicTacToe
-Tic Tac Toe Game in Java
-🎮 Overview
-This is a simple Tic Tac Toe (X-O) game implemented in Java. It is a two-player console-based game where users take turns to mark spaces in a 3×3 grid. The game checks for wins, draws, and handles invalid inputs.
+# Tic Tac Toe – Java OOP Console Game
 
-🛠️ Technologies Used
-Java
+## 🎮 Overview  
+This is a **two-player Tic Tac Toe game** implemented in Java using an **object-oriented design**. The game is played in the console and includes full turn-based logic, board rendering, win/draw detection, and clean code structure with multiple classes.
 
-Console-based input/output
+It's designed to demonstrate practical OOP principles such as **encapsulation**, **class responsibilities**, and **modularity**, making it a solid example of clean and maintainable Java code.
 
-Arrays and loops
+---
 
-Conditional logic
+## 🧠 OOP Structure
 
-Basic Object-Oriented Programming (OOP) concepts (if applicable)
+| Class             | Responsibility                                          |
+|------------------|----------------------------------------------------------|
+| `TicTacToeGame`   | Main class for managing game flow and interactions      |
+| `Board`           | Handles board state, rendering, and win/draw checking   |
+| `Player`          | Represents each player (name, symbol)                   |
+| `Move` *(optional)* | Represents a player's move (row, col)                   |
 
-✨ Features
-Two-player mode (X vs O)
+---
 
-Board displayed after each move
+## ✨ Features  
+- Clean separation of concerns via multiple classes  
+- 3×3 grid with automatic display updates  
+- Turn-based logic for Player X and O  
+- Win, draw, and invalid input handling  
+- Easy to expand into GUI or AI modes
 
-Win, lose, or draw detection
+---
 
-Input validation (occupied cells, out-of-bound positions)
+## 🔧 Technologies Used  
+- **Java** (JDK 8 or above)  
+- OOP principles (encapsulation, modularity)  
+- Console I/O
 
-Option to play again 
+---
+
+## 🚀 How to Run  
+```bash
+git clone https://github.com/SogandJavaheri/tic-tac-toe-java.git
+cd tic-tac-toe-java
+javac *.java
+java TicTacToeGame
