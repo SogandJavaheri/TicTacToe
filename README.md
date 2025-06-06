@@ -37,7 +37,7 @@ It's designed to demonstrate practical OOP principles such as **encapsulation**,
 
 ## 🚀 How to Run  
 ```bash
-git clone https://github.com/SogandJavaheri/tic-tac-toe-java.git
+git clone https://github.com/SogandJavaheri/tic-tac-toe.git
 cd tic-tac-toe-java
 javac *.java
 java TicTacToeGame
